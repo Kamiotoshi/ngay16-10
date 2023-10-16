@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/mainpage.css">
+    <style>
+        .payment-button {
+            padding: 10px 200px;
+            font-size: 20px;
+            border-radius: 5px;
+            background-color: rgb(204, 255, 0);
+            transition: background-color 0.3s, color 0.3s; /* Hiệu ứng hover mềm mại */
+        }
+        .payment-button:hover {
+            color: #ffffff; /* Màu chữ mới khi hover */
+        }
+    </style>
+</head>
+<body>
+    <header id="header"></header>
+
+    <main class="container-fluid" style="min-height: 500px;">
+        <h1 class="web-title">Invoice</h1>
+
+        <section class="d-flex justify-content-center">
+            <div class="titleOfPayment col-10 order-lg-1">
+                <div class="row payment-table-title d-flex justify-content-center" style="margin-bottom: 15px;font-size: 20px;">
+                    <div class="col-6" style="padding-left: 50px;">
+                        Item
+                    </div>
+                    <div class="col-2">
+                        Price
+                    </div>
+                    <div class="col-2 text-center">
+                        Quantity
+                    </div>
+                    <div class="col-2 text-center">
+                        Subtotal
+                    </div>
+                </div>
+
+                <hr>
+
+                <div class="payment-list">
+                    <!-- <div class="payment-item">
+                        <div class="row" id="">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <img src="images/1.jpg" class="payment-img">
+                                    </div>
+                                    <div class="col-7 cart-img-detail">
+                                        chi tiết ảnh    
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="payment-unit-price">
+                                    900
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="payment-quantitty" style="display: flex; align-items: center; justify-content: center;">
+                                   quantity
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="payment-total">
+                                    <div class="total-of-product"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    </div> -->
+                </div>
+                <div class="row" style="font-size: 30px;">
+                    <div class="col-10 text-center">
+                        TOTAL
+                    </div>
+                    <div class="col-2 text-center payment-need-pay">
+                        Payment
+                    </div>
+                </div>
+                <div class="d-flex justify-content-center" style="margin-top: 30px;">
+                    <button class="payment-button" id="payment-button" style="padding: 10px 200px; font-size: 20px; border-radius: 5px; background-color: rgb(204, 255, 0);">Mua hàng</button>
+                </div>
+            </div>
+
+            
+        </section>
+        
+    </main>
+    
+    <footer id="footer" style="margin-top: 40px;"></footer>
+
+    <script>
+        fetch('header only.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header').innerHTML = data;
+        });
+
+    fetch('footer only.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('footer').innerHTML = data;
+        });
+
+        function PaymentEmpty() {
+            const savedPaymentItems = localStorage.getItem('cartItems');
+            return !savedPaymentItems || JSON.parse(savedPaymentItems).length === 0;
+        }
+
+        const savedPaymentItems = localStorage.getItem('cartItems');
+        console.log('payment-item:', savedPaymentItems);
+
+        function displayPayment() {
+            const paymentList = document.querySelector('.payment-list');
+            while (paymentList.firstChild) {
+                paymentList.removeChild(paymentList.firstChild);
+            }
+
+            const savePaymentItems = localStorage.getItem('cartItems');
+
+            if (savePaymentItems) {
+                const paymentItems = JSON.parse(savePaymentItems);
+
+                paymentItems.forEach(item => {
+                    const paymentItem = document.createElement('div');
+                    paymentItem.classList.add('payment-item');
+                    paymentItem.innerHTML = `
+                        <div class="row" id="${item.id}">
+                            <div class="col-6">
+                                <div class="row">
+                                    <div class="col-5">
+                                        <img src="${item.src}" class="payment-img">
+                                    </div>
+                                    <div class="col-7 payment-img-detail">
+                                        ${item.title}   
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="payment-unit-price">
+                                    ${item.price} $
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="payment-quantitty" style="display: flex; align-items: center; justify-content: center;">
+                                    ${item.quantity}
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="payment-total text-center">
+                                    <div class="total-of-product">${item.total} $</div>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                    `;
+                    paymentList.appendChild(paymentItem);
+                });
+            }
+            const paymentButton = document.querySelector('.payment-button');
+            paymentButton.addEventListener('click', function () {
+                alert('Cảm ơn bạn sử dụng dịch vụ của chúng tôi, đơn hàng của bạn sẽ được chuyển đến trong vòng 24 giờ tới.');
+                window.location.href = 'home.html';
+                localStorage.clear();
+            });
+        }
+
+        const paymentPrice = localStorage.getItem('Payment');
+        const paymentNeedPay = document.querySelector('.payment-need-pay');
+        paymentNeedPay.textContent = paymentPrice;
+        console.log('Payment:', paymentPrice);
+
+        displayPayment();
+    </script>
+    
+</body>
+</html>

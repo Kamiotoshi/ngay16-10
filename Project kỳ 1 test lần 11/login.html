@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/mainpage.css">
+</head>
+<body>
+    <header id="header"></header>
+
+    <main class="login-system">
+        <div class="login-bar">
+            <form class="login" id="login-form">
+                <strong class="login-title">LOGIN</strong>
+                <div class="">
+                    <div>
+                        <label>Username</label>
+                        <div>
+                            <input class="my-2" type="text" id="username" ng-model="yourName" placeholder="Username" style="width: 250px;" required> 
+                        </div>
+                    </div>
+                    <div>
+                        <label>Password</label>
+                        <div>
+                            <input class="my-2" type="password" id="password" ng-model="yourPassword" placeholder="********" style="width: 250px;" required>
+                        </div>
+                    </div>
+                    <button class="login-button mt-2" type="button" style="width: 100%;" id="login-button">Login</button>
+                    <div class="mt-4">
+                        <p>Not registered? <a href="register.html" style="text-decoration: none;">Create account</a></p>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+    
+    <div id="login-message" style="text-align: center; margin-top: 10px;"></div>
+
+    <footer id="footer" style="margin-top: 40px;"></footer>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+<!-- <script src="js/home.js"></script> -->
+<script>
+    fetch('header only.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('header').innerHTML = data;
+        });
+
+    fetch('footer only.html')
+        .then(response => response.text())
+        .then(data => {
+            document.getElementById('footer').innerHTML = data;
+        });
+
+    var testAPI = 'https://jsonplaceholder.typicode.com/posts'
+
+    fetch(testAPI) 
+    .then(function(response) {
+        return response.json();
+    })
+    .then(function(posts) {
+        console.log(posts);
+    })
+    
+    // Function kiểm tra đăng nhập
+    function checkLogin() {
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
+
+        // Lấy dữ liệu đăng ký từ localStorage và kiểm tra thử xem có tồn tại dữ liệu nào không
+        const storedData = localStorage.getItem('registrationData');
+        if (!storedData) {
+            alert("Your web don't have any data yet.");
+            return;
+        }
+
+        const registrationData = JSON.parse(storedData);
+
+        // So sánh thông tin đăng nhập với dữ liệu đăng ký
+        if (username === registrationData.username && password === registrationData.password) {
+            alert('Logged in successfully.');
+            window.location.href = 'home.html';
+        } else if (username !== registrationData.username) {
+            alert('Account does not exist.');
+        } else {
+            alert('Incorrect password.');
+        }
+    }
+
+    // Gán hàm kiểm tra đăng nhập cho sự kiện click của nút "Login"
+    const loginButton = document.getElementById('login-button');
+    loginButton.addEventListener('click', function () {
+        checkLogin(); // Gọi function kiểm tra đăng nhập
+    });
+
+</script>
+</html>

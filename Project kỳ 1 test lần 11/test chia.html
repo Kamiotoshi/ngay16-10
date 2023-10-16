@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="css/mainpage.css">
+</head>
+<body>
+    <header id="header"></header>
+
+    <main class="container-fluid">
+    <div class="nav-present">
+        <ol>
+            <li><a class="nav-small" href="home.html">Home</a></li>
+            <li>Fridges</li>
+        </ol>
+    </div>
+    <div class="row">
+        <div class="col-3 d-none d-sm-block brand-list">
+            Brand
+            <div> 
+                <div class="form-check" id="filterDiv">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
+                    <label class="form-check-label" for="exampleRadios1">
+                      Electrolux
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2">
+                    <label class="form-check-label" for="exampleRadios2">
+                      LG
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios3" value="option3">
+                    <label class="form-check-label" for="exampleRadios3">
+                      Funiki
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios4" value="option1">
+                    <label class="form-check-label" for="exampleRadios4">
+                      Samsung
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios5" value="option2">
+                    <label class="form-check-label" for="exampleRadios5">
+                      Panasonic
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios6" value="option3">
+                    <label class="form-check-label" for="exampleRadios6">
+                      Toshiba
+                    </label>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-12 col-sm-9">
+            Results
+            <div class="row" id="productFridges">
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        fetch('header only.html')
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById('header').innerHTML = data;
+            });
+const productsFridges = [
+    {
+        imgSrc: 'images/1.jpg',
+        title: 'Washing machine I-Pro Series 7',
+        subtitleProduct: 'Freestanding, 12 Kg, 1400 RPM, Engine Direct Motion, Class A',
+        subtitle1: '•Direct Motion Motor',
+        subtitle2: '•Refresh',
+        subtitle3: '•Automatic cleaning system',
+        subtitle4: '•Steam diffusion',
+        subtitle5: '•Anti-Bacterial Treatment',
+        brand: 'test'
+    },
+    {
+        imgSrc: 'images/2.jpg',
+        title: 'Washing machine I-Pro Series 7',
+        subtitleProduct: 'Freestanding, 12 Kg, 1400 RPM, Engine Direct Motion, Class A',
+        subtitle1: '•Direct Motion Motor',
+        subtitle2: '•Refresh',
+        subtitle3: '•Automatic cleaning system',
+        subtitle4: '•Steam diffusion',
+        subtitle5: '•Anti-Bacterial Treatment',
+        brand: 'test2'
+    },
+    {
+        imgSrc: 'images/3.jpg',
+        title: 'Washing machine I-Pro Series 7',
+        subtitleProduct: 'Freestanding, 12 Kg, 1400 RPM, Engine Direct Motion, Class A',
+        subtitle1: '•Direct Motion Motor',
+        subtitle2: '•Refresh',
+        subtitle3: '•Automatic cleaning system',
+        subtitle4: '•Steam diffusion',
+        subtitle5: '•Anti-Bacterial Treatment',
+        brand: 'test'
+    },
+    {
+        imgSrc: 'images/4.jpg',
+        title: 'Washing machine I-Pro Series 7',
+        subtitleProduct: 'Freestanding, 12 Kg, 1400 RPM, Engine Direct Motion, Class A',
+        subtitle1: '•Direct Motion Motor',
+        subtitle2: '•Refresh',
+        subtitle3: '•Automatic cleaning system',
+        subtitle4: '•Steam diffusion',
+        subtitle5: '•Anti-Bacterial Treatment',
+        brand: 'test2'
+    },
+    {
+        imgSrc: 'images/4.jpg',
+        title: 'Washing machine I-Pro Series 7',
+        subtitleProduct: 'Freestanding, 12 Kg, 1400 RPM, Engine Direct Motion, Class A',
+        subtitle1: '•Direct Motion Motor',
+        subtitle2: '•Refresh',
+        subtitle3: '•Automatic cleaning system',
+        subtitle4: '•Steam diffusion',
+        subtitle5: '•Anti-Bacterial Treatment',
+        brand: 'test2'
+    },
+];
+
+productsFridges.forEach(product => {
+    const productRow = document.getElementById('productFridges');
+    const productCol = document.createElement('div');
+    productCol.classList.add('col-12', 'col-lg-4', 'col-sm-6', 'my-2');
+    productCol.innerHTML = `
+        <div class="card">
+            <img src="${product.imgSrc}" class="card-img-top" alt="...">
+            <div class="card-header">
+                <h5 class="card-title">${product.title}</h5>
+                <h6 class="card-subtitle mb-2 text-body-secondary">${product.subtitleProduct}</h6>
+            </div>
+            <div class="card-body">
+                <p class="card-subtitle mb-2 text-body-secondary">${product.subtitle1}</p>
+                <p class="card-subtitle mb-2 text-body-secondary">${product.subtitle2}</p>
+                <p class="card-subtitle mb-2 text-body-secondary">${product.subtitle3}</p>
+                <p class="card-subtitle mb-2 text-body-secondary">${product.subtitle4}</p>
+                <p class="card-subtitle mb-2 text-body-secondary">${product.subtitle5}</p>
+            </div>
+            <div class="card-footer">
+                <a href="#" class="btn btn-danger stretched-link d-flex justify-content-around">Buy Now</a>
+            </div>
+        </div>
+    `;
+    productRow.appendChild(productCol);
+});
+const filterDiv = document.getElementById('filterDiv');
+
+// Định nghĩa hàm để hiển thị các sản phẩm có brand là "test" và ẩn các sản phẩm khác
+function filterProductsByBrand() {
+    const productRows = document.querySelectorAll('.col-12.col-lg-4.col-sm-6.my-2');
+
+    productRows.forEach(productRow => {
+        const product = productsFridges.find(product => product.title === productRow.querySelector('.card-title').textContent);
+        if (product) {
+            if (product.brand === 'test') {
+                productRow.style.display = 'block'; // Hiển thị sản phẩm có brand là 'test'
+            } else {
+                productRow.style.display = 'none'; // Ẩn các sản phẩm khác
+            }
+        }
+    });
+}
+
+// Thêm sự kiện click cho div để thực hiện lọc sản phẩm
+filterDiv.addEventListener('click', filterProductsByBrand);
+    </script>
+
+
+    </main>
+</body>
+</html>
